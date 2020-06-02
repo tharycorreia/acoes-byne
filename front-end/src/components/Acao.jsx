@@ -2,13 +2,17 @@ import React from 'react'
 import '../styles/Acao.css'
 
 function Acao(props) {
+  let symbol = props.acao.symbol
+  let companyName = props.acao.companyName
+  let basePrice = props.acao.basePrice
+  let catchPhrase = props.acao.catchPhrase
+
   return (
-    <div className="card">
-      <h1 className='title-card m-3 d-flex justify-content-center'>simbol - company name</h1>
-      <div>
-        <h2 className='d-flex justify-content-center'>base price</h2>
-        <h3 className='d-flex justify-content-center'>catch price</h3>
-      </div>
+    <div className="col-md-2 card m-2">
+      <h2 className='title-card mt-2 m-1 d-flex justify-content-center'> {symbol}</h2>
+      <h3 className='text-center pt-2'>{companyName}</h3>
+      <h3 className='text-center'>Base price: {basePrice}</h3>
+      <h4 className='text-center'>{catchPhrase}</h4>
     </div>
   )
 }
