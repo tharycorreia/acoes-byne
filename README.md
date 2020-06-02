@@ -11,6 +11,8 @@ Logo após, irá abrir uma janela no browser com o endereço localhost:3000
 
 O back-end utilizará a porta 8080 e o front-end a porta 3000
 
+Para comunicação com o back-end foi utilizado o protocolo websocket.
+
 Para mais informações sobre o back-end, acessar o link 
 https://bitbucket.org/byne/testfrontend1/src/master/
 
