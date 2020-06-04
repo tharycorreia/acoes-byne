@@ -16,4 +16,4 @@ Para comunicação com o back-end foi utilizado o protocolo websocket.
 Para mais informações sobre o back-end, acessar o link 
 https://bitbucket.org/byne/testfrontend1/src/master/
 
-<img src='https://github.com/tharycorreia/imgs/blob/master/byne.png?raw=true' />
+<img src='https://github.com/tharycorreia/imgs/blob/master/byne2.png?raw=true' />
