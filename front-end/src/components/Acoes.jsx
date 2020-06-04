@@ -1,27 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Acao from './Acao'
 import '../styles/Acoes.css'
 
 function Acoes() {
   const webSocket = new WebSocket('ws://localhost:8080');
   const [stockData, setStockData] = useState([])
-  
-  webSocket.onmessage = function(event) {
-    var data = JSON.parse(event.data)
-    setStockData(data.stocksData)
-  } 
+  const msg = { stocks: ['IET', 'N', 'ZHT', 'V', 'ELY', 'TZW', 'FIK', 'T', 'ZQ', 'NP', 'MJ', 'KG', 'OY', 'ITN', 'OB', 'ACM', 'QQ', 'X', 'XLC', 'S'], event: 'subscribe' }
+  console.log('>>> ', webSocket)
 
-  webSocket.onerror = function(error) {
+  useEffect(() => {
+    webSocket.onopen = (event) => {
+    };
+  }, [])
+
+  useEffect(() => {
+    webSocket.onmessage = (event) => {
+      var data = JSON.parse(event.data)
+      webSocket.send(JSON.stringify(msg))
+
+      setStockData(data.stocksData)
+    }
+  })
+
+
+  webSocket.onerror = (error) => {
     console.log('WebSocket Error: ' + error);
   };
 
-  webSocket.onclose = function(event) {
+  webSocket.onclose = (event) => {
     console.log('Disconnected from WebSocket.', event);
-  };
-
-  webSocket.onopen = function(event) {
-    console.log("WebSocket is open now.", event);
-    
   };
 
   return (

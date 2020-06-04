@@ -7,11 +7,15 @@ function Acao(props) {
   let basePrice = props.acao.basePrice
   let catchPhrase = props.acao.catchPhrase
 
+  function mask(value) {
+    return '$ ' + value.toFixed(2)
+  }
+
   return (
     <div className="col-md-2 card m-2">
       <h2 className='title-card mt-2 m-1 d-flex justify-content-center'> {symbol}</h2>
       <h3 className='text-center pt-2'>{companyName}</h3>
-      <h3 className='text-center'>Base price: {basePrice}</h3>
+      <h3 className='text-center'>{mask(basePrice)}</h3>
       <h4 className='text-center'>{catchPhrase}</h4>
     </div>
   )
