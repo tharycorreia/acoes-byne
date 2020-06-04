@@ -10,7 +10,6 @@ function Acoes() {
 
   const msg = { stocks: ['IET', 'N', 'ZHT', 'V', 'ELY', 'TZW', 'FIK', 'T', 'ZQ', 'NP', 
   'MJ', 'KG', 'OY', 'ITN', 'OB', 'ACM', 'QQ', 'X', 'XLC', 'S'], event: 'subscribe' }
-  //const msg = { stocks: ['IET', 'OB'], event: 'subscribe' }
 
   useEffect(() => {
     webSocket.onopen = () => {
@@ -51,10 +50,10 @@ function Acoes() {
 
   return (
     <div>
-      <div className='container card'>
+      <div className='container card p-2'>
         <h1 className='d-flex justify-content-center'> {key[0]}  {mask(newPrice[0])}</h1>
       </div>
-      <div className='container d-flex justify-content-center row acoes'>
+      <div className='container d-flex justify-content-center row acoes mt-4'>
 
         {stockData && stockData.map((stock, index) => {
           return (
