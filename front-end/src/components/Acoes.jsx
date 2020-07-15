@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react'
 import Acao from './Acao'
 import '../styles/Acoes.css'
 
+require("dotenv/config")
+
+const params = {
+  URL: process.env.REACT_APP_URL,
+  PORT: process.env.REACT_APP_PORT
+}
+
 function Acoes() {
 
   const [ietValue, setIet] = useState(0)
@@ -73,8 +80,10 @@ function Acoes() {
     const msg = {
       stocks: ['IET', 'N', 'ZHT', 'V', 'ELY', 'TZW', 'FIK', 'T', 'ZQ', 'NP', 'MJ', 'KG', 'OY', 'ITN', 'OB', 'ACM', 'QQ', 'X', 'XLC', 'S'], event: 'subscribe'
     }
-
-    const webSocket = new WebSocket('ws://localhost:8080');
+    const url = params.URL === undefined ? 'ws://localhost:8080' : params.URL + ':' + params.PORT;
+    
+   
+    const webSocket = new WebSocket(url);
     webSocket.onerror = (error) => {
       console.log('WebSocket Error: ' + error);
     };
