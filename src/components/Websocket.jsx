@@ -8,16 +8,20 @@ const params = {
   PORT: process.env.REACT_APP_PORT
 }
 
-export default function WebsSocket() {
+export default function WebSocketComponent() {
 
   const dispatch = useDispatch()
+  
   const [stockList, setStockList] = useState([])
+  const [stockObjects, setStockObjects] = useState([])
+
   const defaultAddress = 'ws://localhost:8080'
+  var webSocket
 
   function createWS() {
     
     const url = params.URL === undefined ? defaultAddress : params.URL + ':' + params.PORT;
-    const webSocket = new WebSocket(url);
+    webSocket = new WebSocket(url);
 
     webSocket.onopen = () => {
       console.log('WebSocket Open')
@@ -29,30 +33,30 @@ export default function WebsSocket() {
 
     webSocket.onclose = () => {
       console.log('Disconnected from WebSocket.');
-
-      setTimeout(function () { 
-        createWS() 
-      }, 3000);
+      createWS()
     }
 
     webSocket.onmessage = (event) => {
-      let data = JSON.parse(event.data)
-
-      if (data.event === 'connected') {
-        data = data.supportedSymbols
-        setStockList(data)
-        webSocket.send(JSON.stringify({
-          stocks: data, event: 'subscribe'
-        }))
-      }
-
-      if (data.event === 'stocks-update') {
-        dispatch({ type: 'NEW_VALUE', newValue: data.stocks })
-      }
+      parseData(event)
     }
   }
 
-  const [stockObjects, setStockObjects] = useState([])
+  function parseData(event) {
+    let data = JSON.parse(event.data)
+
+    if (data.event === 'connected') {
+      data = data.supportedSymbols
+      setStockList(data)
+      webSocket.send(JSON.stringify({
+        stocks: data, event: 'subscribe'
+      }))
+    }
+
+    if (data.event === 'stocks-update') {
+      dispatch({ type: 'NEW_VALUE', newValue: data.stocks })
+    }
+  }
+
   function transfToObject(stockList) {
     setStockObjects([])
     stockList.forEach((stock) => {
