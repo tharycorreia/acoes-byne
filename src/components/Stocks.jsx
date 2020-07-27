@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import Stock from './Stock'
+import WebSocketComponent from './Websocket'
 
 require("dotenv/config")
 
@@ -11,6 +12,7 @@ const params = {
 }
 
 export default function Stocks() {
+  WebSocketComponent()
 
   const listValue = useSelector(state => state.listValue)
   const newValue = useSelector(state => state.newValue)
