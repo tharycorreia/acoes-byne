@@ -10,8 +10,8 @@ function Stock(props) {
   
   return (
     <div className="col-md-2 card m-2">
-      <h2 className='title-card mt-2 m-1 d-flex justify-content-center'> {props.stock.stockName}</h2>
-      <h2 className='title-card mt-2 m-1 d-flex justify-content-center'> {mask(props.stock.value)}</h2>
+      <h2 className='title-card mt-2 m-1 d-flex justify-content-center'> {props.stock !== undefined ? props.stock.stockName : ''}</h2>
+      <h2 className='title-card mt-2 m-1 d-flex justify-content-center'> {props.stock !== undefined ? mask(props.stock.value) : ''}</h2>
     </div>
   )
 }

@@ -8,7 +8,7 @@ export default function Stocks() {
   const listValue = useSelector(state => state.listValue)
   const newValue = useSelector(state => state.newValue)
 
-  function changeValue(newValue) {
+  function changeValue(newValue = '') {
     let key = Object.keys(newValue)
     let value = Object.values(newValue)
     listValue && listValue.forEach(element => {
