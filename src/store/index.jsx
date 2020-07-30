@@ -1,22 +1,16 @@
 import { createStore } from 'redux'
 
-export const stockListAction = () => ({ type: 'STOCK_LIST',});
-export const changeStockListAction = () => ({ type: 'CHANGE_LIST_VALUE',});
-export const newValueAction = () => ({ type: 'NEW_VALUE',});
+export const changeStockListAction = () => ({ type: 'CHANGE_LIST_VALUE' });
+export const newValueAction = () => ({ type: 'NEW_VALUE' });
 
 const INITIAL_STATE = {
-  stockList: [],
   listValue: [],
-  newValue: {}
+  newValue: {},
+  newTime: 0
 }
 
 function StocksStore(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case 'STOCK_LIST':
-      return {
-        ...state,
-        stockList: action.list
-      }
     case 'CHANGE_LIST_VALUE':
       return {
         ...state,
@@ -25,7 +19,8 @@ function StocksStore(state = INITIAL_STATE, action) {
     case 'NEW_VALUE':
       return {
         ...state,
-        newValue: action.newValue
+        newValue: action.newValue,
+        newTime: action.newTime
       }
     default:
       return state

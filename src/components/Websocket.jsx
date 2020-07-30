@@ -14,8 +14,8 @@ export default function WebSocketComponent() {
   
   const [stockList, setStockList] = useState([])
   const [stockObjects, setStockObjects] = useState([])
-
   const defaultAddress = 'ws://localhost:8080'
+
   var webSocket
 
   function createWS() {
@@ -45,22 +45,30 @@ export default function WebSocketComponent() {
     let data = JSON.parse(event.data)
 
     if (data.event === 'connected') {
+      setStockList(data.stocksData)
       data = data.supportedSymbols
-      setStockList(data)
       webSocket.send(JSON.stringify({
         stocks: data, event: 'subscribe'
       }))
     }
 
     if (data.event === 'stocks-update') {
-      dispatch({ type: 'NEW_VALUE', newValue: data.stocks })
+      dispatch({ type: 'NEW_VALUE', newValue: data.stocks, newTime: Date.now()})
     }
   }
 
   function transfToObject(stockList) {
     setStockObjects([])
     stockList.forEach((stock) => {
-      stockObjects.push({ stockName: stock, value: 0 })
+      stockObjects.push({ 
+        stockName: stock.symbol, 
+        companyName: stock.companyName,
+        catchPhrase: stock.catchPhrase,
+        basePrice: stock.basePrice,
+        value: 0,
+        oldValue: 0,
+        time: Date.now()
+      })
     })
     dispatch({ type: 'CHANGE_LIST_VALUE', listValue: stockObjects })
   }
@@ -68,10 +76,6 @@ export default function WebSocketComponent() {
   useEffect(() => {
     transfToObject(stockList);
   }, [stockList])
-
-  useEffect(() => {
-    dispatch({ type: 'STOCK_LIST', list: stockList })
-  }, [stockList, dispatch])
 
   useEffect(() => {
     createWS()
